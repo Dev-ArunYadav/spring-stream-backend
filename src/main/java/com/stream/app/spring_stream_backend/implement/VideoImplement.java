@@ -88,4 +88,11 @@ public class VideoImplement implements VideoService {
     public void delete(Video video) {
 
     }
+
+    @Override
+    public Video getById(String id) {
+        return videoRepository.findById(id).orElseThrow(()-> new RuntimeException("Video not found"));
+    }
+
+
 }

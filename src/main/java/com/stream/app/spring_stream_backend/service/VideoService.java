@@ -20,4 +20,7 @@ public interface VideoService {
     Video update(Video video, MultipartFile file);
     // Delete Video
     void delete(Video video);
+
+    // get video by id
+    Video getById(String id);
 }
