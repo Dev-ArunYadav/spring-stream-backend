@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: spring-stream-backend
+  datasource:
+    url: jdbc:h2:file:./blog_app   # jdbc:h2:mem:blogdb In-memory database for testing , # jdbc:h2:file:./blogdb  for file-based database
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
