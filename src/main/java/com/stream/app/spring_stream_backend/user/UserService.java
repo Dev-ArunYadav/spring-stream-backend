@@ -12,11 +12,9 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    // Add your service methods here
-
     public UserEntity createUser(CreateUserRequest req) {
         UserEntity user =  UserEntity.builder()
-                .userName(req.username())
+                .username(req.username())
                 .email(req.email())
 //                .password(req.password())
                 .build();
@@ -29,7 +27,7 @@ public class UserService {
     }
 
     public UserEntity getUserByUsername(String username) {
-        Optional<UserEntity> userOptional = userRepository.findByUserName(username);
+        Optional<UserEntity> userOptional = userRepository.findByUsername(username);
         return userOptional.orElseThrow(() -> new RuntimeException("User not found"));
     }
 
