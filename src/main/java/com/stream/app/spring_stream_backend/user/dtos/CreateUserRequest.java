@@ -1,18 +1,20 @@
 package com.stream.app.spring_stream_backend.user.dtos;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record CreateUserRequest(
-        @Nonnull
-        String username,
-        @Nonnull
-        String email,
-        @Nonnull
-        String password
-) {
-    @JsonCreator
-    public CreateUserRequest {
-        // Constructor for JSON deserialization
-    }
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CreateUserRequest{
+        @NotNull
+        private String username;
+        @NotNull
+        @Email
+        private String email;
+        @NotNull
+        private String password;
 }

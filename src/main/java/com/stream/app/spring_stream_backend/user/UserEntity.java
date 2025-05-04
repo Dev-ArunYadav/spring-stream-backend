@@ -3,6 +3,7 @@ package com.stream.app.spring_stream_backend.user;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 @Entity
@@ -17,18 +18,15 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "user_name",unique = true, nullable = false)
-    @Nonnull
+    @Column(unique = true, nullable = false)
     private String username;
     @Column(unique = true, nullable = false)
-    @Nonnull
+    @Email
     private String email;
 //    private String password;
     @Column(nullable = true)
-    @Nullable
     private String bio;
     @Column(nullable = true)
-    @Nullable
     private String imageUrl;
 
 }

@@ -24,6 +24,6 @@ public class UserServiceTest {
                         "password"
                 ));
         Assertions.assertNotNull(user);
-        Assertions.assertEquals("Arun", user.getUserName());
+        Assertions.assertEquals("Arun", user.getUsername());
     }
 }

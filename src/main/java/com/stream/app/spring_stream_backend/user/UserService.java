@@ -3,6 +3,7 @@ package com.stream.app.spring_stream_backend.user;
 import com.stream.app.spring_stream_backend.user.dtos.CreateUserRequest;
 import com.stream.app.spring_stream_backend.user.dtos.LoginUserRequest;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,14 +12,22 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final ModelMapper mapper;
 
     public UserEntity createUser(CreateUserRequest req) {
-        UserEntity user =  UserEntity.builder()
-                .username(req.username())
-                .email(req.email())
-//                .password(req.password())
-                .build();
-        return userRepository.save(user);
+        // Check if the user already exists
+        Optional<UserEntity> existingUser = userRepository.findByUsername(req.getUsername());
+        if (existingUser.isPresent()) {
+            throw new RuntimeException("User already exists");
+        }
+        // Check if the email already exists
+        Optional<UserEntity> existingEmail = userRepository.findByEmail(req.getEmail());
+        if (existingEmail.isPresent()) {
+            throw new RuntimeException("Email already exists");
+        }
+        // Create a new user
+        UserEntity map = mapper.map(req, UserEntity.class);
+        return userRepository.save(map);
     }
 
     public UserEntity getUserById(Long userId) {
