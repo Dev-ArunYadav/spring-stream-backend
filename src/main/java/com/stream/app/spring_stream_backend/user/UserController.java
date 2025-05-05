@@ -22,7 +22,6 @@ public class UserController {
     private final ModelMapper mapper;
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-// converting the user entity to a DTO
     public UserResponse userResponseToDto(UserEntity user) {
         return mapper.map(user, UserResponse.class);
     }
@@ -30,7 +29,6 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity<UserResponse> signupUser(@Valid @RequestBody CreateUserRequest req) {
         logger.info("Creating user with username: {}", req.getUsername());
-        logger.info("Creating user with email: {}", req.getEmail());
         UserEntity user = service.createUser(req);
         URI location = URI.create("/users/" + user.getId());
         return ResponseEntity.created(location).body(userResponseToDto(user));

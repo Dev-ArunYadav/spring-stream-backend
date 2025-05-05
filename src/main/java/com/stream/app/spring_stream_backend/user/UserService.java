@@ -25,6 +25,7 @@ public class UserService {
         if (existingEmail.isPresent()) {
             throw new RuntimeException("Email already exists");
         }
+
         // Create a new user
         UserEntity map = mapper.map(req, UserEntity.class);
         return userRepository.save(map);
@@ -45,11 +46,10 @@ public class UserService {
         if (user == null) {
             throw new RuntimeException("User not found");
         }
-//        if (user.getPassword().equals(password)) {
-//            return user;
-//        } else {
-//            throw new RuntimeException("Invalid credentials");
-//        }
-        return user;
+        if (user.getPassword().equals(req.password())) {
+            return user;
+        } else {
+            throw new RuntimeException("Invalid credentials");
+        }
     }
 }

@@ -7,6 +7,7 @@ import com.stream.app.spring_stream_backend.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -16,14 +17,19 @@ public class ArticleService {
     private final UserRepository userRepository;
 
     public ArticleEntity createArticle(CreateArticleRequest req, Long authorId) {
+        articleRepository.findBySlug(req.getTitle().toLowerCase().replaceAll(" ", "-"))
+                .ifPresent(article -> {
+                    throw new RuntimeException("Article with this slug already exists");
+                });
         // Check if the author exists
         UserEntity author = userRepository.findById(authorId).orElseThrow(() -> new RuntimeException("Author not found"));
         ArticleEntity article = ArticleEntity.builder()
-                .title(req.title())
-                .slug(req.title().toLowerCase().replaceAll(" ", "-"))
-                .body(req.body())
-                .subtitle(req.subtitle())
+                .title(req.getTitle())
+                .slug(req.getTitle().toLowerCase().replaceAll(" ", "-"))
+                .body(req.getBody())
+                .subtitle(req.getSubtitle())
                 .author(author)
+                .createdAt(LocalDateTime.now())
                 .build();
         return articleRepository.save(article);
     }
@@ -40,16 +46,17 @@ public class ArticleService {
     public ArticleEntity updateArticle(Long articleId, UpdateArticleRequest req) {
         ArticleEntity article = articleRepository.findById(articleId)
                                     .orElseThrow(() -> new RuntimeException("Article not found"));
-        if (req.title() != null) {
-            article.setTitle(req.title());
-            article.setSlug(req.title().toLowerCase().replaceAll(" ", "-"));
+        if (req.getTitle() != null) {
+            article.setTitle(req.getTitle());
+            article.setSlug(req.getTitle().toLowerCase().replaceAll(" ", "-"));
         }
-        if (req.subtitle() != null) {
-            article.setSubtitle(req.subtitle());
+        if (req.getSubtitle() != null) {
+            article.setSubtitle(req.getSubtitle());
         }
-        if (req.body() != null) {
-            article.setBody(req.body());
+        if (req.getBody() != null) {
+            article.setBody(req.getBody());
         }
+        article.setCreatedAt(LocalDateTime.now());
         return articleRepository.save(article);
     }
 

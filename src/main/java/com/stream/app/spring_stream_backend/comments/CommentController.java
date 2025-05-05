@@ -1,16 +1,30 @@
 package com.stream.app.spring_stream_backend.comments;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.stream.app.spring_stream_backend.comments.dtos.CreateCommentRequest;
+import com.stream.app.spring_stream_backend.comments.dtos.CommentResponse;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 
 @RestController
-@RequestMapping("/article/{article-slug}/comments")
+@RequestMapping("/article/{slug}/comments")
+@RequiredArgsConstructor
 public class CommentController {
 
-    @GetMapping
-    public String getComments() {
-        return "List of comments";
-    }
+    private final CommentService commentService;
+    private final ModelMapper mapper;
 
+    @PostMapping("")
+    public ResponseEntity<CommentResponse> addComment(
+            @PathVariable String slug,
+            @RequestBody CreateCommentRequest req,
+            @RequestParam Long authorId // Ideally from authentication context
+    ) {
+        CommentEntity comment = commentService.addComment(slug, authorId, req);
+        URI location = URI.create("/article/" + slug + "/comments/" + comment.getId());
+        return ResponseEntity.created(location).body(mapper.map(comment, CommentResponse.class));
+    }
 }

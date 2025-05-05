@@ -23,7 +23,8 @@ public class UserEntity {
     @Column(unique = true, nullable = false)
     @Email
     private String email;
-//    private String password;
+    @Column(nullable = false)
+    private String password;
     @Column(nullable = true)
     private String bio;
     @Column(nullable = true)
