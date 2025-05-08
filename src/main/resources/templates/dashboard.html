@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .card-body {
+            background-color: #ffffff;
+        }
+
+        .card-footer {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Dashboard</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Card 1
+                    </div>
+                    <div class="card-body">
+                        Content for Card 1
+                        <h2>Dashboard</h2>
+                        <p>Hello, <strong th:text="${user['name']}"></strong>!</p>
+                        <p>Email: <span th:text="${user['email']}"></span></p>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit">Logout</button>
+                        </form>
+                    </div>
+                    <div class="card-footer">
+                        Footer for Card 1
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Card 2
+                    </div>
+                    <div class="card-body">
+                        Content for Card 2
+                    </div>
+                    <div class="card-footer">
+                        Footer for Card 2
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Card 3
+                    </div>
+                    <div class="card-body">
+                        Content for Card 3
+                    </div>
+                    <div class="card-footer">
+                        Footer for Card 3
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            // Add any custom JavaScript here
+        });
+    </script>
+</body>
+</html>
