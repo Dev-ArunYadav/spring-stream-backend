@@ -22,7 +22,6 @@ spring:
         - "**/public/**"
     livereload:
       enabled: true
-  security:
-    user:
-      name: admin
-      password: admin
+  config:
+    import:
+      - classpath:/application-secure.yaml
