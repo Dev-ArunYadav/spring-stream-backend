@@ -20,10 +20,11 @@ public class UserRepositoryTest {
     @Order(1)
     void can_create_users() {
         UserEntity user = UserEntity.builder()
-                .userName("testUser")
+                .username("testUser")
                 .email("ydv.arun@gmail.com")
                 .bio("test bio")
                 .imageUrl("test image url")
+                .password("testPassword") // Assuming password is required
                 .build();
         userRepository.save(user);
     }
@@ -32,10 +33,11 @@ public class UserRepositoryTest {
     @Order(2)
     void can_find_users(){
         UserEntity user = UserEntity.builder()
-                .userName("testUser")
+                .username("testUser")
                 .email("ydv.arun@gmail.com")
                 .bio("test bio")
                 .imageUrl("test image url")
+                .password("testPassword") // Assuming password is required
                 .build();
         userRepository.save(user);
         var users = userRepository.findAll();
