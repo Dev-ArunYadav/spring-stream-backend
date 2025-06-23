@@ -25,7 +25,7 @@ spring:
 
   config:
     import:
-      - optional:classpath:/application-secure.yaml
+      - classpath:/application-secure.yaml
 
 server:
   port: 8083
