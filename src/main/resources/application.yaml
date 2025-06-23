@@ -1,5 +1,6 @@
 spring:
-
+  profiles:
+    active: dev  # Change to 'test' for testing profile, 'prod' for production
   # jdbc:h2:mem:blogdb In-memory database for testing , # jdbc:h2:file:./blogdb  for file-based database
   datasource:
     h2:
